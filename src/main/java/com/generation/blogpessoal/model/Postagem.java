@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Table(name = "tb_postagens")
 @Getter
 @Setter
-public class Postagens {
+public class Postagem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
