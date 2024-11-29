@@ -1,4 +1,4 @@
-package com.generation.blogpessoal;
+package com.generation.blogpessoal.controller;
 
 import com.generation.blogpessoal.model.Tema;
 import com.generation.blogpessoal.repository.TemaRepository;
@@ -22,8 +22,7 @@ public class TemaController {
 
     @GetMapping
     public ResponseEntity<List<Tema>> getAll() {
-        List<Tema> temas = temaRepository.findAll();
-        return ResponseEntity.ok(temas);
+        return ResponseEntity.ok(temaRepository.findAll());
     }
 
     @GetMapping("/{id}")
