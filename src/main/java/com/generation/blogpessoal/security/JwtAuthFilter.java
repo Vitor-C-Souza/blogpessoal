@@ -34,27 +34,39 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         String token = null;
         String username = null;
-
+        System.out.println();
         try {
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 token = authHeader.substring(7);
                 username = jwtService.extractUsername(token);
+                System.out.println("Token recebido: " + token);
+                System.out.println("Usuário extraído do token: " + username);
             }
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                System.out.println("UserDetails carregado: " + userDetails.getUsername());
 
                 if (jwtService.validateToken(token, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
+
+                    System.out.println("Autenticação configurada para o usuário: " + username);
+                } else {
+                    System.out.println("Token inválido para o usuário: " + username);
                 }
             }
             filterChain.doFilter(request, response);
-        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | ResponseStatusException e) {
+        } catch (ExpiredJwtException e) {
+            System.out.println("Token expirado: {}" + e.getMessage());
             response.setStatus(HttpStatus.FORBIDDEN.value());
-            return;
+        } catch (UnsupportedJwtException | MalformedJwtException e) {
+            System.out.println("Token inválido: {}" + e.getMessage());
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+        } catch (ResponseStatusException e) {
+            System.out.println("Erro de autenticação: {}" + e.getMessage());
+            response.setStatus(HttpStatus.FORBIDDEN.value());
         }
     }
 }

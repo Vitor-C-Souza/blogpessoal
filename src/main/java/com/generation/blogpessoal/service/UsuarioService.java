@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -44,7 +45,7 @@ public class UsuarioService {
 
             Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
 
-            if ((buscaUsuario.isPresent()) && (buscaUsuario.get().getId() != usuario.getId()))
+            if ((buscaUsuario.isPresent()) && (!Objects.equals(buscaUsuario.get().getId(), usuario.getId())))
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
 
             usuario.setSenha(criptografarSenha(usuario.getSenha()));
