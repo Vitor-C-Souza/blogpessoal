@@ -43,9 +43,7 @@ public class UsuarioControllerTest {
 
         HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(usuario);
 
-        ResponseEntity<Usuario> resposta = testRestTemplate.exchange("/usuarios/cadastrar", HttpMethod.POST, requisicao,
-                Usuario.class);
+        ResponseEntity<Usuario> resposta = testRestTemplate.exchange("/usuarios/cadastrar", HttpMethod.POST, requisicao, Usuario.class);
         assertEquals(HttpStatus.CREATED, resposta.getStatusCode());
     }
-
 }
