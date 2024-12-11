@@ -1,14 +1,13 @@
 package com.generation.blogpessoal.security;
 
 import com.generation.blogpessoal.model.Usuario;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
-@NoArgsConstructor
+
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -16,6 +15,9 @@ public class UserDetailsImpl implements UserDetails {
     private String password;
 
     private List<GrantedAuthority> authorities;
+
+    public UserDetailsImpl() {
+    }
 
     public UserDetailsImpl(Usuario user) {
         this.username = user.getUsuario();

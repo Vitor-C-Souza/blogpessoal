@@ -29,14 +29,12 @@ public class UsuarioService {
     private AuthenticationManager authenticationManager;
 
     public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
-
         if (usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
             return Optional.empty();
-
+        
         usuario.setSenha(criptografarSenha(usuario.getSenha()));
 
         return Optional.of(usuarioRepository.save(usuario));
-
     }
 
     public Optional<Usuario> atualizarUsuario(Usuario usuario) {
