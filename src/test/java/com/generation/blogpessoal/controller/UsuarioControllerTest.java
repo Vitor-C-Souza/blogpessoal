@@ -33,7 +33,8 @@ public class UsuarioControllerTest {
     @BeforeAll
     void start() {
         usuarioRepository.deleteAll();
-        usuarioService.cadastrarUsuario(new Usuario(0L, "João", "joao@root.com", "12345678", "url"));
+
+        usuarioService.cadastrarUsuario(new Usuario(1L, "João Silva", "joao.silva@email.com", "senha123", "https://link-para-foto.com/foto.jpg"));
     }
 
     @Test

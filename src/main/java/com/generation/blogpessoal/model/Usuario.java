@@ -93,4 +93,16 @@ public class Usuario {
     public void setPostagem(List<Postagem> postagem) {
         this.postagem = postagem;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", senha='" + senha + '\'' +
+                ", foto='" + foto + '\'' +
+                ", postagem=" + postagem +
+                '}';
+    }
 }
